@@ -1,0 +1,11 @@
+{
+  "name": "Roshan Cloths Store",
+  "short_name": "Roshan Store",
+  "description": "Offline-first clothing store management",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#172554",
+  "icons": []
+}

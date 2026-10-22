@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#172554">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Roshan Store">
+  <title>Roshan Cloths Store</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">R</div><div><strong>Roshan</strong><small>Cloths Store</small></div></div>
+      <nav id="side-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-item" data-page="products"><span>▤</span> Products</button>
+        <button class="nav-item" data-page="sales"><span>🛍</span> Sales & Billing</button>
+        <button class="nav-item" data-page="customers"><span>♙</span> Customers</button>
+        <button class="nav-item" data-page="reports"><span>▥</span> Reports</button>
+        <button class="nav-item" data-page="backup"><span>⚙</span> Backup & Settings</button>
+      </nav>
+      <div class="sidebar-foot"><span class="online-dot"></span> Offline-ready • Local data</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-brand" id="mobile-menu" aria-label="Open navigation">☰</button>
+        <div><div class="eyebrow">STORE MANAGEMENT</div><h1 id="page-title">Dashboard</h1></div>
+        <div class="top-actions"><span class="today" id="today-label"></span><span class="avatar">R</span></div>
+      </header>
+
+      <section id="page-dashboard" class="page active">
+        <div class="welcome-row"><div><h2>Welcome back 👋</h2><p>Here’s what’s happening at your store today.</p></div><button class="primary" data-go="sales">＋ New sale</button></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-label">Today's Sales <span class="stat-icon blue">₹</span></div><div class="stat-value" id="stat-today-sales">₹0.00</div><div class="stat-note">Total sales recorded today</div></article>
+          <article class="stat-card"><div class="stat-label">Products <span class="stat-icon violet">▤</span></div><div class="stat-value" id="stat-products">0</div><div class="stat-note">Unique products in inventory</div></article>
+          <article class="stat-card"><div class="stat-label">Units in Stock <span class="stat-icon green">□</span></div><div class="stat-value" id="stat-stock">0</div><div class="stat-note">Across all product variants</div></article>
+          <article class="stat-card"><div class="stat-label">Total Customers <span class="stat-icon orange">♙</span></div><div class="stat-value" id="stat-customers">0</div><div class="stat-note">Saved customer records</div></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel"><div class="panel-heading"><div><h3>Recent sales</h3><p>Your latest transactions</p></div><button class="text-button" data-go="sales">View all →</button></div><div id="recent-sales" class="table-wrap"></div></article>
+          <article class="panel"><div class="panel-heading"><div><h3>Low stock alert</h3><p>Products with 5 or fewer units</p></div><span class="pill warning" id="low-stock-count">0 items</span></div><div id="low-stock-list" class="low-stock-list"></div></article>
+        </div>
+        <p class="local-note">🔒 Your records are stored on this device. Export backups regularly.</p>
+      </section>
+
+      <section id="page-products" class="page">
+        <div class="page-tools"><div><h2>Product inventory</h2><p>Manage clothing, sizes, colors and stock.</p></div><button class="primary" id="add-product-btn">＋ Add product</button></div>
+        <div class="toolbar"><input id="product-search" type="search" placeholder="Search product, code, size or color…"><select id="stock-filter"><option value="all">All stock</option><option value="low">Low stock (≤5)</option><option value="out">Out of stock</option></select></div>
+        <div class="panel"><div id="products-table" class="table-wrap"></div></div>
+      </section>
+
+      <section id="page-sales" class="page">
+        <div class="page-tools"><div><h2>Sales & billing</h2><p>Create a sale and automatically update inventory.</p></div><button class="primary" id="new-sale-btn">＋ New sale</button></div>
+        <div class="toolbar"><input id="sales-search" type="search" placeholder="Search invoice or customer…"></div>
+        <div class="panel"><div id="sales-table" class="table-wrap"></div></div>
+      </section>
+
+      <section id="page-customers" class="page">
+        <div class="page-tools"><div><h2>Customers</h2><p>Keep track of your customers.</p></div><button class="primary" id="add-customer-btn">＋ Add customer</button></div>
+        <div class="toolbar"><input id="customer-search" type="search" placeholder="Search name or phone…"></div>
+        <div class="panel"><div id="customers-table" class="table-wrap"></div></div>
+      </section>
+
+      <section id="page-reports" class="page">
+        <div class="page-tools"><div><h2>Reports</h2><p>A quick view of your store performance.</p></div><button class="secondary" id="export-report-btn">Export CSV</button></div>
+        <div class="stat-grid report-stats">
+          <article class="stat-card"><div class="stat-label">All-time sales</div><div class="stat-value" id="report-revenue">₹0.00</div></article>
+          <article class="stat-card"><div class="stat-label">Estimated gross profit*</div><div class="stat-value" id="report-profit">₹0.00</div></article>
+          <article class="stat-card"><div class="stat-label">Transactions</div><div class="stat-value" id="report-count">0</div></article>
+          <article class="stat-card"><div class="stat-label">Stock value at cost</div><div class="stat-value" id="report-stock-value">₹0.00</div></article>
+        </div>
+        <div class="panel"><div class="panel-heading"><div><h3>Recent sales summary</h3><p>Sales recorded on this device</p></div></div><div id="report-sales-table" class="table-wrap"></div></div>
+        <p class="muted small">*Estimated gross profit uses each product's saved purchase price and does not include operating expenses, returns or taxes.</p>
+      </section>
+
+      <section id="page-backup" class="page">
+        <div class="page-tools"><div><h2>Backup & settings</h2><p>Protect your shop data and manage this app.</p></div></div>
+        <div class="settings-grid">
+          <article class="panel settings-card"><div class="settings-icon">⬇</div><h3>Export backup</h3><p>Download products, customers and sales as a JSON file. Keep it somewhere safe.</p><button class="primary" id="backup-btn">Download backup</button></article>
+          <article class="panel settings-card"><div class="settings-icon">⬆</div><h3>Restore backup</h3><p>Restore a previous backup. This replaces the current data on this device.</p><input type="file" id="restore-file" accept=".json,application/json"><button class="secondary" id="restore-btn">Restore selected file</button></article>
+          <article class="panel settings-card"><div class="settings-icon">⇩</div><h3>Export sales CSV</h3><p>Open your sales list in a spreadsheet app.</p><button class="secondary" id="backup-csv-btn">Download sales CSV</button></article>
+          <article class="panel settings-card danger-card"><div class="settings-icon">!</div><h3>Clear all data</h3><p>Permanently delete all products, customers and sales stored by this app on this browser.</p><button class="danger" id="clear-data-btn">Clear all data</button></article>
+        </div>
+        <div class="panel info-panel"><h3>About local storage</h3><p>This app stores records in IndexedDB on this browser/device. It does not automatically synchronize with another phone or browser. Clearing Safari website data or losing the device may remove records. Download backups regularly.</p><p id="storage-status" class="muted"></p></div>
+      </section>
+      <footer>Roshan Cloths Store <span>•</span> Offline-first store management</footer>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button class="mobile-nav-item active" data-page="dashboard"><span>▦</span>Home</button>
+    <button class="mobile-nav-item" data-page="products"><span>▤</span>Products</button>
+    <button class="mobile-nav-item" data-page="sales"><span>🛍</span>Sales</button>
+    <button class="mobile-nav-item" data-page="customers"><span>♙</span>Customers</button>
+    <button class="mobile-nav-item" data-page="backup"><span>⚙</span>More</button>
+  </nav>
+
+  <dialog id="product-dialog" class="modal">
+    <form id="product-form" method="dialog">
+      <div class="modal-heading"><div><h2 id="product-dialog-title">Add product</h2><p>Enter product details and stock.</p></div><button type="button" class="icon-button" data-close="product-dialog">×</button></div>
+      <input type="hidden" id="product-id">
+      <div class="form-grid">
+        <label class="full">Product name *<input id="product-name" required maxlength="100" placeholder="e.g. Cotton T-Shirt"></label>
+        <label>Product code<input id="product-code" maxlength="40" placeholder="Optional SKU"></label>
+        <label>Category<input id="product-category" maxlength="50" placeholder="Shirts, jeans…"></label>
+        <label>Size<input id="product-size" maxlength="20" placeholder="M, L, 32…"></label>
+        <label>Color<input id="product-color" maxlength="30" placeholder="Black, blue…"></label>
+        <label>Purchase price (₹) *<input id="product-cost" type="number" min="0" step="0.01" required value="0"></label>
+        <label>Selling price (₹) *<input id="product-price" type="number" min="0" step="0.01" required value="0"></label>
+        <label>Stock quantity *<input id="product-stock" type="number" min="0" step="1" required value="0"></label>
+        <label>Low-stock alert at<input id="product-threshold" type="number" min="0" step="1" value="5"></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close="product-dialog">Cancel</button><button type="submit" class="primary">Save product</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="customer-dialog" class="modal">
+    <form id="customer-form" method="dialog">
+      <div class="modal-heading"><div><h2 id="customer-dialog-title">Add customer</h2><p>Save customer contact details.</p></div><button type="button" class="icon-button" data-close="customer-dialog">×</button></div>
+      <input type="hidden" id="customer-id">
+      <div class="form-grid">
+        <label class="full">Customer name *<input id="customer-name" required maxlength="100"></label>
+        <label>Phone number<input id="customer-phone" type="tel" maxlength="20"></label>
+        <label>Email<input id="customer-email" type="email" maxlength="100"></label>
+        <label class="full">Notes<input id="customer-notes" maxlength="250" placeholder="Optional"></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close="customer-dialog">Cancel</button><button type="submit" class="primary">Save customer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="sale-dialog" class="modal sale-modal">
+    <form id="sale-form" method="dialog">
+      <div class="modal-heading"><div><h2>New sale</h2><p>Select items and quantities.</p></div><button type="button" class="icon-button" data-close="sale-dialog">×</button></div>
+      <label>Customer<select id="sale-customer"><option value="">Walk-in customer</option></select></label>
+      <div id="sale-items"></div>
+      <button type="button" class="secondary add-line" id="add-sale-line">＋ Add item</button>
+      <div class="form-grid sale-adjustments">
+        <label>Discount (₹)<input id="sale-discount" type="number" min="0" step="0.01" value="0"></label>
+        <label>Payment method<select id="sale-payment"><option>Cash</option><option>UPI</option><option>Card</option><option>Bank transfer</option><option>Other</option></select></label>
+      </div>
+      <div class="sale-total"><span>Total payable</span><strong id="sale-total">₹0.00</strong></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close="sale-dialog">Cancel</button><button type="submit" class="primary">Save sale</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="sale-detail-dialog" class="modal">
+    <div class="modal-heading"><div><h2>Sale details</h2><p id="sale-detail-subtitle"></p></div><button type="button" class="icon-button" data-close="sale-detail-dialog">×</button></div>
+    <div id="sale-detail-content"></div>
+    <div class="modal-actions"><button type="button" class="secondary" data-close="sale-detail-dialog">Close</button><button type="button" class="primary" id="print-sale-btn">Print receipt</button></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
